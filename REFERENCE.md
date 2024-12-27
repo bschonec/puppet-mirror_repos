@@ -6,56 +6,40 @@
 
 ### Classes
 
-* [`mirror_repos`](#mirror_repos): Class: mirror_repos ===========================  Full description of class mirror_repos here.  Parameters ----------  * `mirror_repos::vhost`
-* [`mirror_repos::apache`](#mirror_reposapache): class to manage vhost
-* [`mirror_repos::config`](#mirror_reposconfig): == Class mirror_repos::config  This class is called from mirror_repos
-* [`mirror_repos::install`](#mirror_reposinstall): class to install packages
-* [`mirror_repos::params`](#mirror_reposparams): mirror_repos parameters
+* [`mirror_repos`](#mirror_repos): @summary: A Puppet module to mirror YUM repositories.  Full description of class mirror_repos here.  Where to deploy the repo configuration f
+* [`mirror_repos::apache`](#mirror_repos--apache): class to manage vhost
+* [`mirror_repos::config`](#mirror_repos--config): == Class mirror_repos::config  This class is called from mirror_repos
+* [`mirror_repos::install`](#mirror_repos--install): class to install packages
+* [`mirror_repos::params`](#mirror_repos--params): mirror_repos parameters
 
 ## Classes
 
 ### <a name="mirror_repos"></a>`mirror_repos`
 
-Class: mirror_repos
-===========================
+@summary: A Puppet module to mirror YUM repositories.
 
 Full description of class mirror_repos here.
 
-Parameters
-----------
-
-* `mirror_repos::vhost`
-create apache vhost with this name. Default is FQDN
-
-Variables
-----------
-
-* `mirror_repos::config_dir`
 Where to deploy the repo configuration files.
 Default is `/etc/mirror.repos.d`
 
-* `mirror_repos::repos_dir`
 Where to store the mirrorred repos
 Default is `/repos`
 
-* `mirror_repos::repos`
 repositories to mirror
 Default is empty
 
-* `mirror_repos::createrepo_options`
 Options to add to the createrepo command in `update-repo` bash script.
 Must be an array containing options, for example
   $createrepo_options = [ '--local-sqlite' ]
-
-Examples
-####
---------
 
 #### Examples
 
 ##### 
 
 ```puppet
+include mirror_repos
+
 class { 'mirror_repos':
   config_dir => '/etc/repos_conf',
 }
@@ -65,49 +49,34 @@ class { 'mirror_repos':
 
 The following parameters are available in the `mirror_repos` class:
 
-* [`packages`](#packages)
-* [`repos`](#repos)
-* [`vhosts`](#vhosts)
-* [`config_dir`](#config_dir)
-* [`repos_dir`](#repos_dir)
-* [`manage_vhost`](#manage_vhost)
-* [`createrepo_options`](#createrepo_options)
-* [`download_metadata`](#download_metadata)
-* [`legacy_cron`](#legacy_cron)
-* [`cron_minute`](#cron_minute)
-* [`cron_hour`](#cron_hour)
-* [`cron_date`](#cron_date)
-* [`cron_month`](#cron_month)
-* [`cron_weekday`](#cron_weekday)
-* [`proxy`](#proxy)
-* [`proxy_username`](#proxy_username)
-* [`proxy_password`](#proxy_password)
+* [`vhosts`](#-mirror_repos--vhosts)
+* [`config_dir`](#-mirror_repos--config_dir)
+* [`repos_dir`](#-mirror_repos--repos_dir)
+* [`repos`](#-mirror_repos--repos)
+* [`createrepo_options`](#-mirror_repos--createrepo_options)
+* [`manage_vhost`](#-mirror_repos--manage_vhost)
+* [`download_metadata`](#-mirror_repos--download_metadata)
+* [`delete_old`](#-mirror_repos--delete_old)
+* [`legacy_cron`](#-mirror_repos--legacy_cron)
+* [`cron_minute`](#-mirror_repos--cron_minute)
+* [`cron_hour`](#-mirror_repos--cron_hour)
+* [`cron_date`](#-mirror_repos--cron_date)
+* [`cron_month`](#-mirror_repos--cron_month)
+* [`cron_weekday`](#-mirror_repos--cron_weekday)
+* [`proxy`](#-mirror_repos--proxy)
+* [`packages`](#-mirror_repos--packages)
+* [`proxy_username`](#-mirror_repos--proxy_username)
+* [`proxy_password`](#-mirror_repos--proxy_password)
 
-##### <a name="packages"></a>`packages`
-
-Data type: `Array`
-
-
-
-Default value: `$mirror_repos::params::packages`
-
-##### <a name="repos"></a>`repos`
+##### <a name="-mirror_repos--vhosts"></a>`vhosts`
 
 Data type: `Hash`
 
-
-
-Default value: `$mirror_repos::params::repos`
-
-##### <a name="vhosts"></a>`vhosts`
-
-Data type: `Hash`
-
-
+create apache vhost with this name. Default is FQDN
 
 Default value: `$mirror_repos::params::vhosts`
 
-##### <a name="config_dir"></a>`config_dir`
+##### <a name="-mirror_repos--config_dir"></a>`config_dir`
 
 Data type: `String`
 
@@ -115,7 +84,7 @@ Data type: `String`
 
 Default value: `$mirror_repos::params::config_dir`
 
-##### <a name="repos_dir"></a>`repos_dir`
+##### <a name="-mirror_repos--repos_dir"></a>`repos_dir`
 
 Data type: `String`
 
@@ -123,15 +92,15 @@ Data type: `String`
 
 Default value: `$mirror_repos::params::repos_dir`
 
-##### <a name="manage_vhost"></a>`manage_vhost`
+##### <a name="-mirror_repos--repos"></a>`repos`
 
-Data type: `Boolean`
+Data type: `Hash`
 
 
 
-Default value: `$mirror_repos::params::manage_vhost`
+Default value: `$mirror_repos::params::repos`
 
-##### <a name="createrepo_options"></a>`createrepo_options`
+##### <a name="-mirror_repos--createrepo_options"></a>`createrepo_options`
 
 Data type: `Array`
 
@@ -139,7 +108,15 @@ Data type: `Array`
 
 Default value: `$mirror_repos::params::createrepo_options`
 
-##### <a name="download_metadata"></a>`download_metadata`
+##### <a name="-mirror_repos--manage_vhost"></a>`manage_vhost`
+
+Data type: `Boolean`
+
+
+
+Default value: `$mirror_repos::params::manage_vhost`
+
+##### <a name="-mirror_repos--download_metadata"></a>`download_metadata`
 
 Data type: `Boolean`
 
@@ -147,7 +124,15 @@ Data type: `Boolean`
 
 Default value: `$mirror_repos::params::download_metadata`
 
-##### <a name="legacy_cron"></a>`legacy_cron`
+##### <a name="-mirror_repos--delete_old"></a>`delete_old`
+
+Data type: `Boolean`
+
+
+
+Default value: `$mirror_repos::params::delete_old`
+
+##### <a name="-mirror_repos--legacy_cron"></a>`legacy_cron`
 
 Data type: `Boolean`
 
@@ -155,7 +140,7 @@ Data type: `Boolean`
 
 Default value: `$mirror_repos::params::legacy_cron`
 
-##### <a name="cron_minute"></a>`cron_minute`
+##### <a name="-mirror_repos--cron_minute"></a>`cron_minute`
 
 Data type: `String`
 
@@ -163,7 +148,7 @@ Data type: `String`
 
 Default value: `$mirror_repos::params::cron_minute`
 
-##### <a name="cron_hour"></a>`cron_hour`
+##### <a name="-mirror_repos--cron_hour"></a>`cron_hour`
 
 Data type: `String`
 
@@ -171,7 +156,7 @@ Data type: `String`
 
 Default value: `$mirror_repos::params::cron_hour`
 
-##### <a name="cron_date"></a>`cron_date`
+##### <a name="-mirror_repos--cron_date"></a>`cron_date`
 
 Data type: `String`
 
@@ -179,7 +164,7 @@ Data type: `String`
 
 Default value: `$mirror_repos::params::cron_date`
 
-##### <a name="cron_month"></a>`cron_month`
+##### <a name="-mirror_repos--cron_month"></a>`cron_month`
 
 Data type: `String`
 
@@ -187,7 +172,7 @@ Data type: `String`
 
 Default value: `$mirror_repos::params::cron_month`
 
-##### <a name="cron_weekday"></a>`cron_weekday`
+##### <a name="-mirror_repos--cron_weekday"></a>`cron_weekday`
 
 Data type: `String`
 
@@ -195,45 +180,53 @@ Data type: `String`
 
 Default value: `$mirror_repos::params::cron_weekday`
 
-##### <a name="proxy"></a>`proxy`
+##### <a name="-mirror_repos--proxy"></a>`proxy`
 
 Data type: `Optional[Stdlib::HTTPUrl]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="proxy_username"></a>`proxy_username`
+##### <a name="-mirror_repos--packages"></a>`packages`
+
+Data type: `Array`
+
+
+
+Default value: `$mirror_repos::params::packages`
+
+##### <a name="-mirror_repos--proxy_username"></a>`proxy_username`
 
 Data type: `Optional[String]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="proxy_password"></a>`proxy_password`
+##### <a name="-mirror_repos--proxy_password"></a>`proxy_password`
 
 Data type: `Optional[Variant[String,Sensitive[String]]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-### <a name="mirror_reposapache"></a>`mirror_repos::apache`
+### <a name="mirror_repos--apache"></a>`mirror_repos::apache`
 
 class to manage vhost
 
-### <a name="mirror_reposconfig"></a>`mirror_repos::config`
+### <a name="mirror_repos--config"></a>`mirror_repos::config`
 
 == Class mirror_repos::config
 
 This class is called from mirror_repos
 
-### <a name="mirror_reposinstall"></a>`mirror_repos::install`
+### <a name="mirror_repos--install"></a>`mirror_repos::install`
 
 class to install packages
 
-### <a name="mirror_reposparams"></a>`mirror_repos::params`
+### <a name="mirror_repos--params"></a>`mirror_repos::params`
 
 mirror_repos parameters
 
