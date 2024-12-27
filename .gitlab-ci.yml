@@ -42,3 +42,4 @@ parallel_spec-Ruby 2.4.5-Puppet ~> 5:
   variables:
     PUPPET_GEM_VERSION: '~> 5'
 
+
