@@ -3,4 +3,9 @@
 ---
 fixtures:
   forge_modules:
-#     stdlib: "puppetlabs/stdlib"
+     stdlib: "puppetlabs/stdlib"
+     cron: "puppet-cron"
+     cron_core: "puppetlabs-cron_core"
+  repositories:
+     apache: 'https://github.com/puppetlabs/puppetlabs-apache'
+     concat: 'https://github.com/puppetlabs/puppetlabs-concat.git'
