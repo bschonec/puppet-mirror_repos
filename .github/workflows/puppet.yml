@@ -1,6 +1,15 @@
+# This is a basic workflow to help you get started with Actions
+
 name: CI
 
-on: push
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "15-integrate-rspec-tests" branch
+  push:
+    branches: "*"
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.ref_name }}
@@ -9,4 +18,4 @@ concurrency:
 jobs:
   puppet:
     name: Puppet
-    uses: voxpupuli/gha-puppet/.github/workflows/basic.yml@v1
+    uses: voxpupuli/gha-puppet/.github/workflows/basic.yml@v3
