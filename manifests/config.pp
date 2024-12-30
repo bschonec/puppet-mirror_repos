@@ -4,16 +4,16 @@
 #
 class mirror_repos::config {
   #just replicate yum.repos.d
-  file { [ $mirror_repos::config_dir, $mirror_repos::repos_dir ]:
+  file { [$mirror_repos::config_dir, $mirror_repos::repos_dir]:
     ensure => directory,
   }
   #create a dir for each OS and then a file for each repo under that OS
   $mirror_repos::repos.each |String $os_name , $repos_os | {
     $os = regsubst($os_name, '[-]', '_', 'G')
-    file {"${mirror_repos::config_dir}/${os}.conf":
+    file { "${mirror_repos::config_dir}/${os}.conf":
       ensure  => 'file',
       mode    => '0644',
-      content => epp('mirror_repos/repo.conf.epp',{
+      content => epp('mirror_repos/repo.conf.epp', {
           os             => $os,
           repos_os       => $repos_os,
           proxy          => $mirror_repos::proxy,

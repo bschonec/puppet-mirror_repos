@@ -63,7 +63,7 @@ class mirror_repos (
   Optional[String] $proxy_username                            = undef,
   Optional[Variant[String,Sensitive[String]]] $proxy_password = undef,
 ) inherits mirror_repos::params {
-  class { '::mirror_repos::install': }
-  -> class { '::mirror_repos::config': }
-  -> class { '::mirror_repos::apache': }
+  class { 'mirror_repos::install': }
+  -> class { 'mirror_repos::config': }
+  -> class { 'mirror_repos::apache': }
 }
