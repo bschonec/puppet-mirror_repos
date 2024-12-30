@@ -65,7 +65,7 @@ class mirror_repos::config {
       user    => 'root',
       hour    => $mirror_repos::cron_hour,
       minute  => $mirror_repos::cron_minute,
-      date    => $mirror_repos::cron_date,
+    # SchoneckerB  date    => $mirror_repos::cron_date,
       month   => $mirror_repos::cron_month,
       weekday => $mirror_repos::cron_weekday,
       require => File['/usr/sbin/update-repos'],
