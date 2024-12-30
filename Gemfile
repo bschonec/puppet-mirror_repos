@@ -1,27 +1,32 @@
-source 'https://rubygems.org'
+# Managed by modulesync - DO NOT EDIT
+# https://voxpupuli.org/docs/updating-files-managed-with-modulesync/
 
-# The development group is intended for developer tooling. CI will never install this.
-group :development do
-end
+source ENV['GEM_SOURCE'] || 'https://rubygems.org'
 
-# The test group is used for static validations and unit tests in gha-puppet's
-# basic and beaker gha-puppet workflows.
 group :test do
-  # Require the latest Puppet by default unless a specific version was requested
-  # CI will typically set it to '~> 7.0' to get 7.x
-  gem 'puppet', ENV.fetch('PUPPET_GEM_VERSION', '>= 0'), require: false
-  # Needed to build the test matrix based on metadata
-  gem 'puppet_metadata', '~> 3.2',  require: false
-  # metagem that pulls in all further requirements
-  gem 'voxpupuli-test', '~> 7.0', require: false
+  gem 'voxpupuli-test', '~> 7.0',   :require => false
+  gem 'coveralls',                  :require => false
+  gem 'simplecov-console',          :require => false
+  gem 'puppet_metadata', '~> 3.5',  :require => false
 end
 
-# The system_tests group is used in gha-puppet's beaker workflow.
+group :development do
+  gem 'guard-rake',               :require => false
+  gem 'overcommit', '>= 0.39.1',  :require => false
+end
+
 group :system_tests do
-  gem 'voxpupuli-acceptance', '~> 2.1', require: false
+  gem 'voxpupuli-acceptance', '~> 3.0',  :require => false
 end
 
-# The release group is used in gha-puppet's release workflow
 group :release do
-  gem 'voxpupuli-release', '~> 3.0', '>= 3.0.1'
+  gem 'voxpupuli-release', '~> 3.0',  :require => false
 end
+
+gem 'rake', :require => false
+gem 'facter', ENV['FACTER_GEM_VERSION'], :require => false, :groups => [:test]
+
+puppetversion = ENV['PUPPET_GEM_VERSION'] || '~> 7.24'
+gem 'puppet', puppetversion, :require => false, :groups => [:test]
+
+# vim: syntax=ruby
